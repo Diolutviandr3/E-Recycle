@@ -3,1125 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Recycle | Kelola Sampah, Dapatkan Penghasilan</title>
+    <title>E-Recycle | Login</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-green: #10B981;
-            --secondary-green: #059669;
-            --light-green: #D1FAE5;
-            --dark-green: #065F46;
-            --white: #FFFFFF;
-            --light-gray: #F9FAFB;
-            --medium-gray: #E5E7EB;
-            --dark-gray: #374151;
-            --accent-blue: #3B82F6;
-            --accent-purple: #8B5CF6;
-            --accent-yellow: #F59E0B;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
-            --radius: 12px;
-            --radius-sm: 8px;
-            --transition: all 0.3s ease;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--light-gray);
-            color: var(--dark-gray);
-            line-height: 1.6;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Navbar */
-        .navbar {
-            background-color: var(--white);
-            box-shadow: var(--shadow);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            padding: 15px 0;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--dark-green);
-            text-decoration: none;
-        }
-
-        .logo i {
-            color: var(--primary-green);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark-gray);
-            font-weight: 500;
-            transition: var(--transition);
-            padding: 8px 0;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-green);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary-green);
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .nav-buttons {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .btn {
-            padding: 10px 24px;
-            border-radius: var(--radius);
-            font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            border: none;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-green);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--secondary-green);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--primary-green);
-            border: 2px solid var(--primary-green);
-        }
-
-        .btn-secondary:hover {
-            background-color: var(--light-green);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--dark-green);
-            cursor: pointer;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(209, 250, 229, 0.2) 100%);
-            padding: 80px 0;
-        }
-
-        .hero-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 40px;
-        }
-
-        .hero-content {
-            flex: 1;
-        }
-
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 700;
-            color: var(--dark-green);
-            line-height: 1.2;
-            margin-bottom: 20px;
-        }
-
-        .hero-title span {
-            color: var(--primary-green);
-        }
-
-        .hero-description {
-            font-size: 1.2rem;
-            color: var(--dark-gray);
-            margin-bottom: 30px;
-            max-width: 600px;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-green);
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--dark-gray);
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-
-        .hero-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
-
-        .hero-image img {
-            max-width: 100%;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--dark-green);
-            margin-bottom: 15px;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--dark-gray);
-            max-width: 700px;
-            margin: 0 auto 50px;
-            font-size: 1.1rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        .feature-card {
-            background-color: var(--white);
-            border-radius: var(--radius);
-            padding: 30px;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            text-align: center;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .feature-icon {
-            background-color: var(--light-green);
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-        }
-
-        .feature-icon i {
-            font-size: 1.8rem;
-            color: var(--primary-green);
-        }
-
-        .feature-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--dark-green);
-            margin-bottom: 15px;
-        }
-
-        .feature-description {
-            color: var(--dark-gray);
-        }
-
-        /* Login & Register Modals */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: rgba(0, 0, 0, 0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 2000;
-        }
-
-        .modal {
-            background-color: var(--white);
-            border-radius: var(--radius);
-            width: 100%;
-            max-width: 500px;
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
-        }
-
-        .modal-header {
-            background-color: var(--primary-green);
-            color: var(--white);
-            padding: 20px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .modal-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-        }
-
-        .modal-close {
-            background: none;
-            border: none;
-            color: var(--white);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .modal-body {
-            padding: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--dark-green);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid var(--medium-gray);
-            border-radius: var(--radius-sm);
-            font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary-green);
-            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
-        }
-
-        .form-check {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .form-check-input {
-            width: 18px;
-            height: 18px;
-        }
-
-        .form-check-label {
-            font-size: 0.9rem;
-            color: var(--dark-gray);
-        }
-
-        .form-text {
-            font-size: 0.85rem;
-            color: var(--dark-gray);
-            margin-top: 5px;
-        }
-
-        .form-link {
-            color: var(--primary-green);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .form-link:hover {
-            text-decoration: underline;
-        }
-
-        .form-footer {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid var(--medium-gray);
-        }
-
-        .form-footer-text {
-            color: var(--dark-gray);
-            font-size: 0.9rem;
-        }
-
-        /* Price Section */
-        .price-section {
-            padding: 80px 0;
-            background-color: var(--white);
-        }
-
-        .price-container {
-            background-color: var(--light-green);
-            border-radius: var(--radius);
-            padding: 40px;
-            box-shadow: var(--shadow);
-        }
-
-        .price-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-
-        .price-title {
-            font-size: 2rem;
-            color: var(--dark-green);
-        }
-
-        .price-refresh {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--dark-gray);
-            font-size: 0.9rem;
-        }
-
-        .price-refresh i {
-            color: var(--primary-green);
-        }
-
-        .price-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-        }
-
-        .price-table th, .price-table td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--medium-gray);
-        }
-
-        .price-table th {
-            background-color: rgba(16, 185, 129, 0.1);
-            color: var(--dark-green);
-            font-weight: 600;
-        }
-
-        .price-table tr:hover {
-            background-color: rgba(16, 185, 129, 0.05);
-        }
-
-        .trend-up {
-            color: var(--primary-green);
-        }
-
-        .trend-down {
-            color: #EF4444;
-        }
-
-        .price-source {
-            text-align: center;
-            color: var(--dark-gray);
-            font-size: 0.9rem;
-            padding-top: 20px;
-            border-top: 1px solid var(--medium-gray);
-        }
-
-        /* Reward Section */
-        .reward-section {
-            padding: 80px 0;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(209, 250, 229, 0.1) 100%);
-        }
-
-        .reward-container {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-        }
-
-        .reward-content {
-            flex: 1;
-        }
-
-        .reward-image {
-            flex: 1;
-            text-align: center;
-        }
-
-        .reward-image img {
-            max-width: 100%;
-            border-radius: var(--radius);
-        }
-
-        .reward-points {
-            background-color: var(--white);
-            border-radius: var(--radius);
-            padding: 30px;
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-        }
-
-        .points-display {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .points-icon {
-            background-color: var(--accent-yellow);
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .points-icon i {
-            font-size: 1.5rem;
-            color: white;
-        }
-
-        .points-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--dark-green);
-        }
-
-        .points-label {
-            color: var(--dark-gray);
-            font-size: 1rem;
-        }
-
-        .exchange-options {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .exchange-option {
-            background-color: var(--white);
-            border-radius: var(--radius);
-            padding: 20px;
-            text-align: center;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 2px solid transparent;
-            cursor: pointer;
-        }
-
-        .exchange-option:hover {
-            border-color: var(--primary-green);
-            transform: translateY(-5px);
-        }
-
-        .exchange-points {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--primary-green);
-            margin-bottom: 10px;
-        }
-
-        .exchange-item {
-            font-weight: 500;
-            color: var(--dark-green);
-            margin-bottom: 5px;
-        }
-
-        .exchange-desc {
-            font-size: 0.9rem;
-            color: var(--dark-gray);
-        }
-
-        /* How It Works */
-        .how-it-works {
-            padding: 80px 0;
-            background-color: var(--white);
-        }
-
-        .steps {
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-            margin-top: 50px;
-        }
-
-        .steps::before {
-            content: '';
-            position: absolute;
-            top: 40px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background-color: var(--medium-gray);
-            z-index: 1;
-        }
-
-        .step {
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            flex: 1;
-            padding: 0 15px;
-        }
-
-        .step-number {
-            width: 80px;
-            height: 80px;
-            background-color: var(--primary-green);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin: 0 auto 20px;
-            box-shadow: var(--shadow);
-        }
-
-        .step-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--dark-green);
-            margin-bottom: 10px;
-        }
-
-        .step-description {
-            color: var(--dark-gray);
-        }
-
-        /* Download App Section */
-        .download-section {
-            padding: 80px 0;
-            background: linear-gradient(135deg, var(--primary-green) 0%, var(--secondary-green) 100%);
-            color: white;
-        }
-
-        .download-container {
-            display: flex;
-            align-items: center;
-            gap: 50px;
-        }
-
-        .download-content {
-            flex: 1;
-        }
-
-        .download-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .download-description {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 30px;
-        }
-
-        .download-features {
-            list-style: none;
-            margin-bottom: 30px;
-        }
-
-        .download-features li {
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .download-features i {
-            font-size: 1.2rem;
-            color: var(--light-green);
-        }
-
-        .download-buttons {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .download-btn {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background-color: white;
-            color: var(--dark-green);
-            padding: 15px 25px;
-            border-radius: var(--radius);
-            text-decoration: none;
-            font-weight: 600;
-            transition: var(--transition);
-            box-shadow: var(--shadow);
-        }
-
-        .download-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .download-btn i {
-            font-size: 2rem;
-        }
-
-        .btn-text {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .btn-label {
-            font-size: 0.8rem;
-            font-weight: 400;
-        }
-
-        .btn-platform {
-            font-size: 1.2rem;
-        }
-
-        .download-image {
-            flex: 1;
-            text-align: center;
-        }
-
-        .download-image img {
-            max-width: 100%;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow-lg);
-        }
-
-        /* Contact Section */
-        .contact-section {
-            padding: 80px 0;
-            background-color: var(--white);
-        }
-
-        .contact-container {
-            display: flex;
-            gap: 50px;
-        }
-
-        .contact-info {
-            flex: 1;
-        }
-
-        .contact-title {
-            font-size: 2rem;
-            color: var(--dark-green);
-            margin-bottom: 20px;
-        }
-
-        .contact-description {
-            color: var(--dark-gray);
-            margin-bottom: 30px;
-        }
-
-        .contact-methods {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .contact-method {
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-        }
-
-        .contact-icon {
-            background-color: var(--light-green);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .contact-icon i {
-            font-size: 1.2rem;
-            color: var(--primary-green);
-        }
-
-        .contact-details h4 {
-            color: var(--dark-green);
-            margin-bottom: 5px;
-        }
-
-        .contact-details p {
-            color: var(--dark-gray);
-        }
-
-        .contact-form {
-            flex: 1;
-            background-color: var(--light-green);
-            border-radius: var(--radius);
-            padding: 40px;
-            box-shadow: var(--shadow);
-        }
-
-        .form-title {
-            font-size: 1.8rem;
-            color: var(--dark-green);
-            margin-bottom: 20px;
-        }
-
-        .contact-form .form-group {
-            margin-bottom: 20px;
-        }
-
-        /* Footer */
-        .footer {
-            background-color: var(--dark-green);
-            color: white;
-            padding: 60px 0 30px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .footer-logo i {
-            color: var(--primary-green);
-        }
-
-        .footer-description {
-            opacity: 0.8;
-            margin-bottom: 20px;
-        }
-
-        .footer-title {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            color: white;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-green);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            color: white;
-            transition: var(--transition);
-        }
-
-        .social-links a:hover {
-            background-color: var(--primary-green);
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 992px) {
-            .hero-container, .reward-container, .download-container, .contact-container {
-                flex-direction: column;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .steps {
-                flex-direction: column;
-                gap: 40px;
-            }
-            
-            .steps::before {
-                display: none;
-            }
-            
-            .download-title {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 70px;
-                left: 0;
-                right: 0;
-                background-color: var(--white);
-                flex-direction: column;
-                padding: 20px;
-                box-shadow: var(--shadow);
-                text-align: center;
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .section-title {
-                font-size: 2rem;
-            }
-            
-            .price-table {
-                display: block;
-                overflow-x: auto;
-            }
-            
-            .exchange-options {
-                grid-template-columns: 1fr;
-            }
-            
-            .download-buttons {
-                flex-direction: column;
-            }
-            
-            .hero-stats {
-                flex-wrap: wrap;
-            }
-        }
-
-        /* Dashboard untuk user yang sudah login */
-        .user-dashboard {
-            display: none;
-            padding: 40px 0;
-            background-color: var(--white);
-        }
-
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-
-        .welcome-message h2 {
-            color: var(--dark-green);
-            margin-bottom: 5px;
-        }
-
-        .user-actions {
-            display: flex;
-            gap: 15px;
-        }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .dashboard-card {
-            background-color: var(--light-green);
-            border-radius: var(--radius);
-            padding: 25px;
-            box-shadow: var(--shadow);
-        }
-
-        .card-title {
-            font-size: 1.3rem;
-            color: var(--dark-green);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card-title i {
-            color: var(--primary-green);
-        }
-
-        .recent-transactions {
-            margin-top: 30px;
-        }
-
-        .transaction-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .transaction-item:last-child {
-            border-bottom: none;
-        }
-
-        .transaction-details h4 {
-            color: var(--dark-green);
-            margin-bottom: 5px;
-        }
-
-        .transaction-amount {
-            font-weight: 600;
-            color: var(--primary-green);
-        }
-
-        /* Notification */
-        .notification {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background-color: var(--white);
-            border-radius: var(--radius);
-            padding: 15px 20px;
-            box-shadow: var(--shadow-lg);
-            display: none;
-            align-items: center;
-            gap: 15px;
-            z-index: 3000;
-            border-left: 4px solid var(--primary-green);
-            max-width: 400px;
-        }
-
-        .notification-icon {
-            color: var(--primary-green);
-            font-size: 1.5rem;
-        }
-
-        .notification-content h4 {
-            color: var(--dark-green);
-            margin-bottom: 5px;
-        }
-
-        .notification-content p {
-            color: var(--dark-gray);
-            font-size: 0.9rem;
-        }
-
-        .notification-close {
-            background: none;
-            border: none;
-            color: var(--dark-gray);
-            cursor: pointer;
-            margin-left: auto;
-        }
-    </style>
 </head>
 <body>
+    
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <i class="fas fa-recycle"></i>
+                <h1>E-Recycle</h1>
+                <p>Kelola Sampah, Dapatkan Penghasilan</p>
+            </div>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginRole">Pilih Peran</label>
+                    <select id="loginRole" class="form-control" required>
+                        <option value="">-- Pilih Peran --</option>
+                        <option value="admin">Admin</option>
+                        <option value="pengepul">Pengepul/Bank Sampah</option>
+                        <option value="masyarakat">Masyarakat</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" class="form-control" placeholder="nama@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" class="form-control" placeholder="Masukkan password" required>
+                </div>
+                
+                <div class="form-check">
+                    <input type="checkbox" id="rememberMe">
+                    <label for="rememberMe">Ingat saya</label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Masuk
+                </button>
+                
+                <div class="login-footer">
+                    <p>Belum punya akun? <a href="#" id="registerLink">Daftar disini</a></p>
+                    <p><a href="#" id="forgotPassword">Lupa password?</a></p>
+                </div>
+            </form>
+            
+            <div class="demo-accounts">
+                <h4>Akun Demo:</h4>
+                <div class="demo-item">
+                    <strong>Admin:</strong> admin@gmail.com | password: admin123
+                </div>
+                <div class="demo-item">
+                    <strong>Pengepul:</strong> pengepul@gmail.com | password: pengepul123
+                </div>
+                <div class="demo-item">
+                    <strong>Masyarakat:</strong> masyarakat@gmail.com | password: masyarakat123
+                </div>
+                
+                <div class="demo-actions">
+                    <button class="btn btn-small btn-secondary" id="resetDemoBtn">
+                        <i class="fas fa-redo"></i> Reset Data Demo
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="login-info">
+            <h2>Selamat Datang di E-Recycle</h2>
+            <p>Platform pengelolaan sampah terintegrasi yang menghubungkan masyarakat dengan pengepul sampah untuk menciptakan lingkungan bersih dan ekonomi sirkular.</p>
+            
+            <div class="features-list">
+                <div class="feature">
+                    <i class="fas fa-recycle"></i>
+                    <h3>Daur Ulang Mudah</h3>
+                    <p>Jual sampah daur ulang dengan harga terbaik</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-coins"></i>
+                    <h3>Dapatkan Penghasilan</h3>
+                    <p>Tukar poin reward menjadi uang tunai</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Temukan Pengepul</h3>
+                    <p>Cari pengepul terdekat dengan peta interaktif</p>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Monitor Real-time</h3>
+                    <p>Pantau status penjemputan dan transaksi</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Notification -->
     <div class="notification" id="notification">
         <div class="notification-icon">
@@ -1136,1049 +118,148 @@
         </button>
     </div>
 
-    <!-- Login Modal -->
-    <div class="modal-overlay" id="loginModal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 class="modal-title">Masuk ke Akun Anda</h3>
-                <button class="modal-close" id="closeLoginModal">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label class="form-label" for="loginEmail">Email</label>
-                        <input type="email" class="form-control" id="loginEmail" placeholder="nama@email.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="loginPassword">Kata Sandi</label>
-                        <input type="password" class="form-control" id="loginPassword" placeholder="Masukkan kata sandi" required>
-                        <div class="form-text">
-                            <a href="#" class="form-link">Lupa kata sandi?</a>
-                        </div>
-                    </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Ingat saya</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Masuk</button>
-                </form>
-                <div class="form-footer">
-                    <p class="form-footer-text">Belum punya akun? <a href="#" class="form-link" id="showRegisterModal">Daftar sekarang</a></p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Register Modal -->
-    <div class="modal-overlay" id="registerModal">
-        <div class="modal">
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Buat Akun Baru</h3>
-                <button class="modal-close" id="closeRegisterModal">
-                    <i class="fas fa-times"></i>
-                </button>
+                <h3>Daftar Akun Baru</h3>
+                <button class="modal-close" id="closeRegisterModal">&times;</button>
             </div>
             <div class="modal-body">
                 <form id="registerForm">
                     <div class="form-group">
-                        <label class="form-label" for="registerName">Nama Lengkap</label>
-                        <input type="text" class="form-control" id="registerName" placeholder="Masukkan nama lengkap" required>
+                        <label for="registerName">Nama Lengkap</label>
+                        <input type="text" id="registerName" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="registerEmail">Email</label>
-                        <input type="email" class="form-control" id="registerEmail" placeholder="nama@email.com" required>
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="registerPhone">Nomor Telepon</label>
-                        <input type="tel" class="form-control" id="registerPhone" placeholder="0812 3456 7890" required>
+                        <label for="registerPhone">Nomor Telepon</label>
+                        <input type="tel" id="registerPhone" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="registerRole">Peran</label>
-                        <select class="form-control" id="registerRole" required>
-                            <option value="" disabled selected>Pilih peran Anda</option>
-                            <option value="masyarakat">Masyarakat (Penjual Sampah)</option>
+                        <label for="registerAddress">Alamat</label>
+                        <textarea id="registerAddress" class="form-control" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerRole">Peran</label>
+                        <select id="registerRole" class="form-control" required>
+                            <option value="">-- Pilih Peran --</option>
+                            <option value="masyarakat">Masyarakat</option>
                             <option value="pengepul">Pengepul/Bank Sampah</option>
-                            <option value="industri">Industri Daur Ulang</option>
+                            <option value="admin">Admin (Hanya untuk tim)</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="registerPassword">Kata Sandi</label>
-                        <input type="password" class="form-control" id="registerPassword" placeholder="Minimal 8 karakter" required>
-                        <div class="form-text">Kata sandi harus mengandung minimal 8 karakter dengan kombinasi huruf dan angka.</div>
+                        <label for="registerPassword">Password</label>
+                        <input type="password" id="registerPassword" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="registerConfirmPassword">Konfirmasi Kata Sandi</label>
-                        <input type="password" class="form-control" id="registerConfirmPassword" placeholder="Ulangi kata sandi" required>
+                        <label for="registerConfirmPassword">Konfirmasi Password</label>
+                        <input type="password" id="registerConfirmPassword" class="form-control" required>
                     </div>
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="agreeTerms" required>
-                        <label class="form-check-label" for="agreeTerms">Saya menyetujui <a href="#" class="form-link">Syarat dan Ketentuan</a> serta <a href="#" class="form-link">Kebijakan Privasi</a></label>
-                    </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Daftar Sekarang</button>
+                    <button type="submit" class="btn btn-primary btn-block">Daftar</button>
                 </form>
-                <div class="form-footer">
-                    <p class="form-footer-text">Sudah punya akun? <a href="#" class="form-link" id="showLoginModal">Masuk di sini</a></p>
-                </div>
             </div>
         </div>
     </div>
 
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container nav-container">
-            <a href="#" class="logo">
-                <i class="fas fa-recycle"></i>
-                <span>E-Recycle</span>
-            </a>
-            
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Beranda</a></li>
-                <li><a href="#features">Fitur</a></li>
-                <li><a href="#price">Harga Sampah</a></li>
-                <li><a href="#reward">Reward</a></li>
-                <li><a href="#how-it-works">Cara Kerja</a></li>
-                <li><a href="#download">Download</a></li>
-                <li><a href="#contact">Hubungi Kami</a></li>
-            </ul>
-            
-            <div class="nav-buttons" id="navButtons">
-                <button class="btn btn-secondary" id="loginBtn">Masuk</button>
-                <button class="btn btn-primary" id="registerBtn">Daftar</button>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title">Kelola Sampah, Dapatkan <span>Penghasilan</span></h1>
-                <p class="hero-description">
-                    E-Recycle adalah platform digital yang menghubungkan Anda dengan pengepul sampah terdekat. 
-                    Jadwalkan penjemputan, lihat harga real-time, dan dapatkan reward poin yang bisa ditukar dengan pulsa atau paket data.
-                </p>
-                
-                <div class="hero-stats">
-                    <div class="stat">
-                        <div class="stat-number">10.000+</div>
-                        <div class="stat-label">Pengguna Aktif</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">5.000+</div>
-                        <div class="stat-label">Kg Sampah Terkelola</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">500+</div>
-                        <div class="stat-label">Pengepul Terdaftar</div>
-                    </div>
-                </div>
-                
-                <div class="hero-buttons">
-                    <button class="btn btn-primary" id="heroRegisterBtn">Daftar Sekarang</button>
-                    <button class="btn btn-secondary" id="heroLearnMoreBtn">Pelajari Lebih Lanjut</button>
-                </div>
-            </div>
-            <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="E-Recycle App">
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <h2 class="section-title">Fitur Unggulan E-Recycle</h2>
-            <p class="section-subtitle">
-                Kami menyediakan solusi lengkap untuk pengelolaan sampah yang mudah, transparan, dan menguntungkan.
-            </p>
-            
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-calendar-alt"></i>
-                    </div>
-                    <h3 class="feature-title">Penjadwalan Fleksibel</h3>
-                    <p class="feature-description">
-                        Atur jadwal penjemputan sampah sesuai waktu luang Anda. Pilih pengepul terdekat dan dapatkan notifikasi real-time.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3 class="feature-title">Harga Real-Time</h3>
-                    <p class="feature-description">
-                        Pantau harga sampah terbaru berdasarkan pasar. Transparansi harga menjamin Anda mendapatkan nilai terbaik.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-coins"></i>
-                    </div>
-                    <h3 class="feature-title">Sistem Reward</h3>
-                    <p class="feature-description">
-                        Dapatkan poin untuk setiap transaksi. Tukarkan poin dengan pulsa, paket data, atau voucher belanja.
-                    </p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="feature-title">Transaksi Aman</h3>
-                    <p class="feature-description">
-                        Pembayaran digital yang aman dengan bukti transaksi. Data pribadi terlindungi dengan enkripsi terkini.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Price Section -->
-    <section class="price-section" id="price">
-        <div class="container">
-            <h2 class="section-title">Harga Sampah Real-Time</h2>
-            <p class="section-subtitle">
-                Harga terkini berdasarkan data pasar dari Asosiasi Daur Ulang Indonesia. Diperbarui setiap hari.
-            </p>
-            
-            <div class="price-container">
-                <div class="price-header">
-                    <h3 class="price-title">Harga per Kilogram</h3>
-                    <div class="price-refresh">
-                        <i class="fas fa-sync-alt" id="refreshPriceBtn"></i>
-                        <span id="priceUpdateTime">Diperbarui: 5 menit yang lalu</span>
-                    </div>
-                </div>
-                
-                <table class="price-table">
-                    <thead>
-                        <tr>
-                            <th>Jenis Sampah</th>
-                            <th>Harga (Rp/Kg)</th>
-                            <th>Perubahan</th>
-                            <th>Tren 7 Hari</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <i class="fas fa-wine-bottle" style="color: var(--accent-blue); margin-right: 8px;"></i>
-                                Plastik PET
-                            </td>
-                            <td>4,500</td>
-                            <td><span class="trend-up">+2%</span></td>
-                            <td><i class="fas fa-arrow-up trend-up"></i> Naik</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <i class="fas fa-newspaper" style="color: var(--primary-green); margin-right: 8px;"></i>
-                                Kertas Koran
-                            </td>
-                            <td>3,200</td>
-                            <td><span class="trend-up">+1.5%</span></td>
-                            <td><i class="fas fa-arrow-up trend-up"></i> Naik</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <i class="fas fa-cube" style="color: var(--accent-purple); margin-right: 8px;"></i>
-                                Kardus
-                            </td>
-                            <td>2,800</td>
-                            <td><span class="trend-down">-0.5%</span></td>
-                            <td><i class="fas fa-arrow-down trend-down"></i> Turun</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <i class="fas fa-beer" style="color: var(--accent-yellow); margin-right: 8px;"></i>
-                                Kaleng Aluminium
-                            </td>
-                            <td>12,000</td>
-                            <td><span class="trend-up">+3.2%</span></td>
-                            <td><i class="fas fa-arrow-up trend-up"></i> Naik</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <i class="fas fa-wine-glass-alt" style="color: #EF4444; margin-right: 8px;"></i>
-                                Kaca
-                            </td>
-                            <td>1,500</td>
-                            <td><span>0%</span></td>
-                            <td><i class="fas fa-minus" style="color: var(--dark-gray);"></i> Stabil</td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <div class="price-source">
-                    <p>Sumber: <strong>Asosiasi Daur Ulang Indonesia</strong> | Harga dapat bervariasi tergantung kondisi dan kualitas sampah</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Reward Section -->
-    <section class="reward-section" id="reward">
-        <div class="container">
-            <h2 class="section-title">Reward Poin & Penukaran</h2>
-            <p class="section-subtitle">
-                Kumpulkan poin dari setiap transaksi dan tukarkan dengan berbagai hadiah menarik.
-            </p>
-            
-            <div class="reward-container">
-                <div class="reward-content">
-                    <div class="reward-points">
-                        <div class="points-display">
-                            <div class="points-icon">
-                                <i class="fas fa-gem"></i>
-                            </div>
-                            <div>
-                                <div class="points-value">1,250</div>
-                                <div class="points-label">Poin Anda Saat Ini</div>
-                            </div>
-                        </div>
-                        <p>Anda telah mengumpulkan <strong>1,250 poin</strong> dari 5 transaksi. Tukarkan poin Anda dengan berbagai hadiah menarik di bawah ini.</p>
-                    </div>
-                    
-                    <h3 style="color: var(--dark-green); margin-bottom: 20px;">Pilihan Penukaran Poin</h3>
-                    
-                    <div class="exchange-options">
-                        <div class="exchange-option" data-points="500" data-item="Pulsa 10.000" data-desc="Semua operator">
-                            <div class="exchange-points">500 Poin</div>
-                            <div class="exchange-item">Pulsa 10.000</div>
-                            <div class="exchange-desc">Semua operator</div>
-                        </div>
-                        
-                        <div class="exchange-option" data-points="750" data-item="Paket Data 3GB" data-desc="Masa aktif 7 hari">
-                            <div class="exchange-points">750 Poin</div>
-                            <div class="exchange-item">Paket Data 3GB</div>
-                            <div class="exchange-desc">Masa aktif 7 hari</div>
-                        </div>
-                        
-                        <div class="exchange-option" data-points="1000" data-item="Voucher Belanja" data-desc="Rp 15.000 di mitra kami">
-                            <div class="exchange-points">1,000 Poin</div>
-                            <div class="exchange-item">Voucher Belanja</div>
-                            <div class="exchange-desc">Rp 15.000 di mitra kami</div>
-                        </div>
-                        
-                        <div class="exchange-option" data-points="1500" data-item="Paket Data 10GB" data-desc="Masa aktif 30 hari">
-                            <div class="exchange-points">1,500 Poin</div>
-                            <div class="exchange-item">Paket Data 10GB</div>
-                            <div class="exchange-desc">Masa aktif 30 hari</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="reward-image">
-                    <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Reward Points">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works -->
-    <section class="how-it-works" id="how-it-works">
-        <div class="container">
-            <h2 class="section-title">Cara Kerja E-Recycle</h2>
-            <p class="section-subtitle">
-                Hanya dalam 4 langkah mudah, sampah Anda bernilai dan lingkungan pun terjaga.
-            </p>
-            
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3 class="step-title">Daftar & Login</h3>
-                    <p class="step-description">
-                        Buat akun dengan data diri Anda. Verifikasi akun untuk keamanan transaksi.
-                    </p>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3 class="step-title">Isi Data Sampah</h3>
-                    <p class="step-description">
-                        Input jenis, perkiraan berat, dan foto sampah yang akan dijual.
-                    </p>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3 class="step-title">Jadwalkan Penjemputan</h3>
-                    <p class="step-description">
-                        Pilih tanggal, waktu, dan pengepul terdekat untuk penjemputan sampah.
-                    </p>
-                </div>
-                
-                <div class="step">
-                    <div class="step-number">4</div>
-                    <h3 class="step-title">Terima Pembayaran & Poin</h3>
-                    <p class="step-description">
-                        Dapatkan pembayaran digital dan poin reward setelah penjemputan selesai.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Download App Section -->
-    <section class="download-section" id="download">
-        <div class="container">
-            <div class="download-container">
-                <div class="download-content">
-                    <h2 class="download-title">Download Aplikasi E-Recycle</h2>
-                    <p class="download-description">
-                        Nikmati kemudahan pengelolaan sampah langsung dari smartphone Anda. 
-                        Aplikasi E-Recycle tersedia untuk Android dan iOS dengan fitur lengkap.
-                    </p>
-                    
-                    <ul class="download-features">
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>Notifikasi real-time untuk status penjemputan</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>Pemantauan harga sampah secara real-time</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>Riwayat transaksi dan poin reward</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-check-circle"></i>
-                            <span>Chat langsung dengan pengepul</span>
-                        </li>
-                    </ul>
-                    
-                    <div class="download-buttons">
-                        <a href="https://play.google.com/store" target="_blank" class="download-btn">
-                            <i class="fab fa-google-play"></i>
-                            <div class="btn-text">
-                                <span class="btn-label">Download di</span>
-                                <span class="btn-platform">Google Play</span>
-                            </div>
-                        </a>
-                        
-                        <a href="https://www.apple.com/app-store/" target="_blank" class="download-btn">
-                            <i class="fab fa-app-store"></i>
-                            <div class="btn-text">
-                                <span class="btn-label">Download di</span>
-                                <span class="btn-platform">App Store</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="download-image">
-                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="E-Recycle Mobile App">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact-section" id="contact">
-        <div class="container">
-            <h2 class="section-title">Hubungi Kami</h2>
-            <p class="section-subtitle">
-                Ada pertanyaan atau butuh bantuan? Tim kami siap membantu Anda.
-            </p>
-            
-            <div class="contact-container">
-                <div class="contact-info">
-                    <h3 class="contact-title">Kontak & Informasi</h3>
-                    <p class="contact-description">
-                        Kami selalu siap membantu Anda dalam proses pengelolaan sampah. 
-                        Hubungi kami melalui informasi di bawah ini atau isi formulir untuk mendapatkan respon yang lebih cepat.
-                    </p>
-                    
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h4>Alamat Kantor</h4>
-                                <p>Jl. Ringroad Selatan, Yogyakarta</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h4>Telepon</h4>
-                                <p>0895375174700</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h4>Email</h4>
-                                <p>ercycle@gmail.com</p>
-                            </div>
-                        </div>
-                        
-                        <div class="contact-method">
-                            <div class="contact-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="contact-details">
-                                <h4>Jam Operasional</h4>
-                                <p>Senin - Jumat: 08.00 - 17.00 WIB</p>
-                                <p>Sabtu: 08.00 - 15.00 WIB</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="contact-form">
-                    <h3 class="form-title">Kirim Pesan</h3>
-                    <form id="contactForm">
-                        <div class="form-group">
-                            <label class="form-label" for="contactName">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="contactName" placeholder="Masukkan nama lengkap" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="contactEmail">Email</label>
-                            <input type="email" class="form-control" id="contactEmail" placeholder="nama@email.com" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="contactSubject">Subjek</label>
-                            <input type="text" class="form-control" id="contactSubject" placeholder="Subjek pesan" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="contactMessage">Pesan</label>
-                            <textarea class="form-control" id="contactMessage" rows="5" placeholder="Tulis pesan Anda di sini..." required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">Kirim Pesan</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <div class="footer-logo">
-                        <i class="fas fa-recycle"></i>
-                        <span>E-Recycle</span>
-                    </div>
-                    <p class="footer-description">
-                        Platform digital untuk pengelolaan sampah daur ulang yang mudah, transparan, dan menguntungkan.
-                    </p>
-                    
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                
-                <div>
-                    <h3 class="footer-title">Tautan Cepat</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">Beranda</a></li>
-                        <li><a href="#features">Fitur</a></li>
-                        <li><a href="#price">Harga Sampah</a></li>
-                        <li><a href="#reward">Reward</a></li>
-                        <li><a href="#how-it-works">Cara Kerja</a></li>
-                        <li><a href="#download">Download</a></li>
-                        <li><a href="#contact">Hubungi Kami</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="footer-title">Layanan</h3>
-                    <ul class="footer-links">
-                        <li><a href="#" id="dashboardLink">Dashboard</a></li>
-                        <li><a href="#" id="sellWasteLink">Jual Sampah</a></li>
-                        <li><a href="#" id="findCollectorLink">Cari Pengepul</a></li>
-                        <li><a href="#" id="historyLink">Riwayat Transaksi</a></li>
-                        <li><a href="#" id="helpLink">Bantuan</a></li>
-                        <li><a href="#" id="termsLink">Syarat & Ketentuan</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="footer-title">Berlangganan Newsletter</h3>
-                    <p class="footer-description" style="margin-bottom: 15px;">
-                        Dapatkan informasi terbaru tentang harga sampah, promo, dan tips daur ulang.
-                    </p>
-                    <div class="form-group" style="margin-bottom: 20px;">
-                        <input type="email" class="form-control" id="newsletterEmail" placeholder="Email Anda">
-                        <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" id="subscribeBtn">Berlangganan</button>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2023 E-Recycle. Hak cipta dilindungi. Dibuat dengan <i class="fas fa-heart" style="color: #EF4444;"></i> untuk lingkungan yang lebih baik.</p>
-            </div>
-        </div>
-    </footer>
-
+    <script src="js/auth.js"></script>
     <script>
-        // ====================
-        // GLOBAL VARIABLES
-        // ====================
-        let currentUser = null;
-        let userPoints = 1250;
-        
-        // ====================
-        // DOM ELEMENTS
-        // ====================
-        const loginModal = document.getElementById('loginModal');
-        const registerModal = document.getElementById('registerModal');
-        const loginBtn = document.getElementById('loginBtn');
-        const registerBtn = document.getElementById('registerBtn');
-        const closeLoginModal = document.getElementById('closeLoginModal');
-        const closeRegisterModal = document.getElementById('closeRegisterModal');
-        const showLoginModal = document.getElementById('showLoginModal');
-        const showRegisterModal = document.getElementById('showRegisterModal');
-        const heroRegisterBtn = document.getElementById('heroRegisterBtn');
-        const heroLearnMoreBtn = document.getElementById('heroLearnMoreBtn');
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-        const navButtons = document.getElementById('navButtons');
-        const loginForm = document.getElementById('loginForm');
-        const registerForm = document.getElementById('registerForm');
-        const contactForm = document.getElementById('contactForm');
-        const refreshPriceBtn = document.getElementById('refreshPriceBtn');
-        const priceUpdateTime = document.getElementById('priceUpdateTime');
-        const notification = document.getElementById('notification');
-        const notificationTitle = document.getElementById('notification-title');
-        const notificationMessage = document.getElementById('notification-message');
-        const notificationClose = document.getElementById('notification-close');
-        const exchangeOptions = document.querySelectorAll('.exchange-option');
-        const subscribeBtn = document.getElementById('subscribeBtn');
-        
-        // ====================
-        // NOTIFICATION SYSTEM
-        // ====================
-        function showNotification(title, message, type = 'success') {
-            notificationTitle.textContent = title;
-            notificationMessage.textContent = message;
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const dateOptions = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            };
+            const timeOptions = { 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit',
+                hour12: false 
+            };
             
-            // Set border color based on type
-            if (type === 'success') {
-                notification.style.borderLeftColor = 'var(--primary-green)';
-                notification.querySelector('.notification-icon i').className = 'fas fa-check-circle';
-            } else if (type === 'error') {
-                notification.style.borderLeftColor = '#EF4444';
-                notification.querySelector('.notification-icon i').className = 'fas fa-exclamation-circle';
-            } else if (type === 'warning') {
-                notification.style.borderLeftColor = 'var(--accent-yellow)';
-                notification.querySelector('.notification-icon i').className = 'fas fa-exclamation-triangle';
-            } else if (type === 'info') {
-                notification.style.borderLeftColor = 'var(--accent-blue)';
-                notification.querySelector('.notification-icon i').className = 'fas fa-info-circle';
-            }
-            
-            notification.style.display = 'flex';
-            
-            // Auto hide after 5 seconds
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 5000);
+            document.getElementById('currentDate').textContent = 
+                now.toLocaleDateString('id-ID', dateOptions);
+            document.getElementById('currentTime').textContent = 
+                now.toLocaleTimeString('id-ID', timeOptions);
         }
         
-        notificationClose.addEventListener('click', () => {
-            notification.style.display = 'none';
-        });
+        // Update every second
+        setInterval(updateDateTime, 1000);
+        updateDateTime();
         
-        // ====================
-        // MODAL FUNCTIONS
-        // ====================
-        function openModal(modal) {
-            modal.style.display = 'flex';
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeModal(modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-        
-        // Event listeners for modals
-        loginBtn.addEventListener('click', () => openModal(loginModal));
-        registerBtn.addEventListener('click', () => openModal(registerModal));
-        heroRegisterBtn.addEventListener('click', () => openModal(registerModal));
-        heroLearnMoreBtn.addEventListener('click', () => {
-            showNotification('Informasi', 'Scroll ke bawah untuk melihat informasi lengkap tentang E-Recycle', 'info');
-        });
-        
-        closeLoginModal.addEventListener('click', () => closeModal(loginModal));
-        closeRegisterModal.addEventListener('click', () => closeModal(registerModal));
-        showLoginModal.addEventListener('click', (e) => {
+        // Show registration modal
+        document.getElementById('registerLink').addEventListener('click', function(e) {
             e.preventDefault();
-            closeModal(registerModal);
-            setTimeout(() => openModal(loginModal), 300);
+            document.getElementById('registerModal').style.display = 'flex';
         });
-        showRegisterModal.addEventListener('click', (e) => {
+        
+        // Close registration modal
+        document.getElementById('closeRegisterModal').addEventListener('click', function() {
+            document.getElementById('registerModal').style.display = 'none';
+        });
+        
+        // Forgot password
+        document.getElementById('forgotPassword').addEventListener('click', function(e) {
             e.preventDefault();
-            closeModal(loginModal);
-            setTimeout(() => openModal(registerModal), 300);
+            alert('Untuk reset password, silakan hubungi admin di: admin@gmail.com');
         });
         
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === loginModal) closeModal(loginModal);
-            if (e.target === registerModal) closeModal(registerModal);
+        // Close notification
+        document.getElementById('notification-close').addEventListener('click', function() {
+            document.getElementById('notification').style.display = 'none';
         });
         
-        // ====================
-        // MOBILE MENU
-        // ====================
-        mobileMenuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            
-            // Change icon
-            if (navLinks.classList.contains('active')) {
-                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
-            } else {
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        // Close modals when clicking outside
+        window.addEventListener('click', function(e) {
+            const registerModal = document.getElementById('registerModal');
+            if (e.target === registerModal) {
+                registerModal.style.display = 'none';
             }
         });
         
-        // ====================
-        // SMOOTH SCROLLING
-        // ====================
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    // Close mobile menu if open
-                    navLinks.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+        // Initialize demo accounts on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default demo email in form for easy testing
+            const roleSelect = document.getElementById('loginRole');
+            const emailInput = document.getElementById('loginEmail');
+            
+            roleSelect.addEventListener('change', function() {
+                const role = this.value;
+                switch(role) {
+                    case 'admin':
+                        emailInput.value = 'admin@gmail.com';
+                        break;
+                    case 'pengepul':
+                        emailInput.value = 'pengepul@gmail.com';
+                        break;
+                    case 'masyarakat':
+                        emailInput.value = 'masyarakat@gmail.com';
+                        break;
+                    default:
+                        emailInput.value = '';
                 }
             });
-        });
-        
-        // ====================
-        // FORM HANDLING
-        // ====================
-        // Login Form
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
             
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            // Simple validation
-            if (!email || !password) {
-                showNotification('Error', 'Harap isi semua field', 'error');
-                return;
-            }
-            
-            // Simulate login process
-            showNotification('Login Berhasil', 'Selamat datang kembali di E-Recycle!', 'success');
-            
-            // Create user object
-            currentUser = {
-                name: "Ahmad Zaki",
-                email: email,
-                role: "masyarakat",
-                points: userPoints
-            };
-            
-            // Update UI for logged in user
-            updateUIForLoggedInUser();
-            
-            // Close modal
-            closeModal(loginModal);
-        });
-        
-        // Register Form
-        registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById('registerName').value;
-            const email = document.getElementById('registerEmail').value;
-            const phone = document.getElementById('registerPhone').value;
-            const role = document.getElementById('registerRole').value;
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('registerConfirmPassword').value;
-            
-            // Validation
-            if (!name || !email || !phone || !role || !password || !confirmPassword) {
-                showNotification('Error', 'Harap isi semua field', 'error');
-                return;
-            }
-            
-            if (password.length < 8) {
-                showNotification('Error', 'Password harus minimal 8 karakter', 'error');
-                return;
-            }
-            
-            if (password !== confirmPassword) {
-                showNotification('Error', 'Password dan konfirmasi password tidak cocok', 'error');
-                return;
-            }
-            
-            // Simulate registration process
-            showNotification('Pendaftaran Berhasil', 'Akun Anda telah berhasil dibuat!', 'success');
-            
-            // Create user object
-            currentUser = {
-                name: name,
-                email: email,
-                phone: phone,
-                role: role,
-                points: 100 // Starting points for new users
-            };
-            
-            // Update UI for logged in user
-            updateUIForLoggedInUser();
-            
-            // Close modal
-            closeModal(registerModal);
-        });
-        
-        // Contact Form
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const subject = document.getElementById('contactSubject').value;
-            const message = document.getElementById('contactMessage').value;
-            
-            // Validation
-            if (!name || !email || !subject || !message) {
-                showNotification('Error', 'Harap isi semua field', 'error');
-                return;
-            }
-            
-            // Simulate sending message
-            showNotification('Pesan Terkirim', 'Terima kasih! Pesan Anda telah berhasil dikirim. Kami akan membalas dalam 1x24 jam.', 'success');
-            
-            // Reset form
-            contactForm.reset();
-        });
-        
-        // Newsletter Subscription
-        subscribeBtn.addEventListener('click', () => {
-            const email = document.getElementById('newsletterEmail').value;
-            
-            if (!email) {
-                showNotification('Error', 'Harap masukkan email Anda', 'error');
-                return;
-            }
-            
-            if (!validateEmail(email)) {
-                showNotification('Error', 'Format email tidak valid', 'error');
-                return;
-            }
-            
-            showNotification('Berlangganan Berhasil', 'Terima kasih telah berlangganan newsletter kami!', 'success');
-            document.getElementById('newsletterEmail').value = '';
-        });
-        
-        // Email validation helper
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(email);
-        }
-        
-        // ====================
-        // PRICE REFRESH
-        // ====================
-        refreshPriceBtn.addEventListener('click', function() {
-            this.classList.add('fa-spin');
-            
-            // Simulate API call
-            setTimeout(() => {
-                this.classList.remove('fa-spin');
-                priceUpdateTime.textContent = 'Diperbarui: Baru saja';
-                showNotification('Harga Diperbarui', 'Data harga sampah telah diperbarui dengan informasi terkini', 'info');
-            }, 1000);
-        });
-        
-        // ====================
-        // REWARD EXCHANGE
-        // ====================
-        exchangeOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                const pointsNeeded = parseInt(this.getAttribute('data-points'));
-                const item = this.getAttribute('data-item');
-                const desc = this.getAttribute('data-desc');
-                
-                if (!currentUser) {
-                    showNotification('Login Diperlukan', 'Silakan login terlebih dahulu untuk menukarkan poin', 'warning');
-                    openModal(loginModal);
-                    return;
-                }
-                
-                if (userPoints < pointsNeeded) {
-                    showNotification('Poin Tidak Cukup', `Anda membutuhkan ${pointsNeeded} poin untuk menukarkan ${item}`, 'warning');
-                    return;
-                }
-                
-                if (confirm(`Tukar ${pointsNeeded} poin untuk ${item}?`)) {
-                    userPoints -= pointsNeeded;
-                    
-                    // Update points display
-                    document.querySelector('.points-value').textContent = userPoints;
-                    
-                    showNotification('Penukaran Berhasil', `Anda telah menukarkan ${pointsNeeded} poin untuk ${item}. Kode penukaran telah dikirim ke email Anda.`, 'success');
-                    
-                    // Update user object
-                    if (currentUser) {
-                        currentUser.points = userPoints;
+            // Check if there's a saved login
+            const savedUser = localStorage.getItem('eRecycleCurrentUser');
+            if (savedUser) {
+                try {
+                    const user = JSON.parse(savedUser);
+                    if (user.email && user.role) {
+                        roleSelect.value = user.role;
+                        emailInput.value = user.email;
+                        document.getElementById('rememberMe').checked = true;
                     }
+                } catch (e) {
+                    console.log('No saved login found');
                 }
-            });
-        });
-        
-        // ====================
-        // USER DASHBOARD FUNCTIONS
-        // ====================
-        function updateUIForLoggedInUser() {
-            if (!currentUser) return;
-            
-            // Change navbar buttons
-            navButtons.innerHTML = `
-                <div style="display: flex; align-items: center; gap: 15px;">
-                    <div style="display: flex; align-items: center; gap: 8px; color: var(--dark-green);">
-                        <i class="fas fa-user-circle" style="font-size: 1.2rem;"></i>
-                        <span style="font-weight: 500;">${currentUser.name}</span>
-                    </div>
-                    <button class="btn btn-secondary" id="logoutBtn">Keluar</button>
-                </div>
-            `;
-            
-            // Add event listener for logout button
-            setTimeout(() => {
-                document.getElementById('logoutBtn').addEventListener('click', logout);
-            }, 100);
-            
-            // Show welcome notification
-            showNotification(`Selamat Datang, ${currentUser.name}!`, 'Selamat menggunakan E-Recycle', 'success');
-        }
-        
-        function logout() {
-            currentUser = null;
-            
-            // Reset navbar buttons
-            navButtons.innerHTML = `
-                <button class="btn btn-secondary" id="loginBtn">Masuk</button>
-                <button class="btn btn-primary" id="registerBtn">Daftar</button>
-            `;
-            
-            // Reattach event listeners
-            setTimeout(() => {
-                document.getElementById('loginBtn').addEventListener('click', () => openModal(loginModal));
-                document.getElementById('registerBtn').addEventListener('click', () => openModal(registerModal));
-            }, 100);
-            
-            showNotification('Logout Berhasil', 'Anda telah berhasil logout', 'info');
-        }
-        
-        // ====================
-        // FOOTER LINK HANDLERS
-        // ====================
-        document.getElementById('dashboardLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            if (!currentUser) {
-                showNotification('Login Diperlukan', 'Silakan login terlebih dahulu untuk mengakses dashboard', 'warning');
-                openModal(loginModal);
-            } else {
-                showNotification('Dashboard', 'Fitur dashboard akan segera tersedia', 'info');
-            }
-        });
-        
-        document.getElementById('sellWasteLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            if (!currentUser) {
-                showNotification('Login Diperlukan', 'Silakan login terlebih dahulu untuk menjual sampah', 'warning');
-                openModal(loginModal);
-            } else {
-                showNotification('Jual Sampah', 'Fitur jual sampah akan segera tersedia', 'info');
-            }
-        });
-        
-        document.getElementById('findCollectorLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            if (!currentUser) {
-                showNotification('Login Diperlukan', 'Silakan login terlebih dahulu untuk mencari pengepul', 'warning');
-                openModal(loginModal);
-            } else {
-                showNotification('Cari Pengepul', 'Fitur pencarian pengepul akan segera tersedia', 'info');
-            }
-        });
-        
-        document.getElementById('historyLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            if (!currentUser) {
-                showNotification('Login Diperlukan', 'Silakan login terlebih dahulu untuk melihat riwayat', 'warning');
-                openModal(loginModal);
-            } else {
-                showNotification('Riwayat Transaksi', 'Fitur riwayat transaksi akan segera tersedia', 'info');
-            }
-        });
-        
-        document.getElementById('helpLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            showNotification('Bantuan', 'Scroll ke bawah untuk menghubungi tim kami', 'info');
-            
-            // Smooth scroll to contact section
-            const contactSection = document.getElementById('contact');
-            window.scrollTo({
-                top: contactSection.offsetTop - 80,
-                behavior: 'smooth'
-            });
-        });
-        
-        document.getElementById('termsLink').addEventListener('click', (e) => {
-            e.preventDefault();
-            showNotification('Syarat & Ketentuan', 'Dokumen Syarat & Ketentuan akan segera tersedia', 'info');
-        });
-        
-        // ====================
-        // INITIALIZE
-        // ====================
-        // Initialize event listeners for modals after page load
-        document.addEventListener('DOMContentLoaded', () => {
-            // Check if user is already logged in (for demo purposes)
-            // In real app, you would check localStorage or cookies
-            const isLoggedIn = localStorage.getItem('eRecycleLoggedIn');
-            
-            if (isLoggedIn === 'true') {
-                // Simulate user login for demo
-                currentUser = {
-                    name: "Ahmad Zaki",
-                    email: "demo@erecycle.id",
-                    role: "masyarakat",
-                    points: userPoints
-                };
-                
-                updateUIForLoggedInUser();
             }
         });
     </script>

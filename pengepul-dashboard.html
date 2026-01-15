@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Pengepul - E-Recycle</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="sidebar-logo">
+                <i class="fas fa-recycle"></i>
+                <span>E-Recycle</span>
+            </a>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul class="sidebar-menu">
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link active" data-page="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="weighing">
+                        <i class="fas fa-weight"></i>
+                        <span>Input Penimbangan</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="pickup">
+                        <i class="fas fa-truck"></i>
+                        <span>Manajemen Penjemputan</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="conversion">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Konversi ke Poin</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="transactions">
+                        <i class="fas fa-history"></i>
+                        <span>Riwayat Transaksi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="stock">
+                        <i class="fas fa-boxes"></i>
+                        <span>Manajemen Stok</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="reports">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Laporan</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="profile">
+                        <i class="fas fa-user-cog"></i>
+                        <span>Profil & Pengaturan</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user-tie"></i>
+                </div>
+                <div class="user-details">
+                    <h4 id="pengepulName">Pengepul</h4>
+                    <p id="pengepulCapacity">Kapasitas: 0/0 kg</p>
+                </div>
+            </div>
+            <button class="btn btn-secondary" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Keluar
+            </button>
+        </div>
+    </div>
+    
+    <!-- Mobile Sidebar Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Main Content -->
+    <div class="content-area">
+        <!-- Dashboard Page -->
+        <div class="page active" id="dashboard-page">
+            <div class="page-header">
+                <h1>Dashboard Pengepul</h1>
+                <button class="btn btn-primary" id="quickWeighBtn">
+                    <i class="fas fa-plus"></i> Input Penimbangan Cepat
+                </button>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalTransactionsPengepul">0</div>
+                    <div class="stat-label">Total Transaksi</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalWasteCollected">0 kg</div>
+                    <div class="stat-label">Sampah Terkumpul</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="availableCapacity">0 kg</div>
+                    <div class="stat-label">Kapasitas Tersedia</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalPointsGiven">0</div>
+                    <div class="stat-label">Poin Diberikan</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-line"></i> Statistik 7 Hari Terakhir</h3>
+                </div>
+                <div class="chart-placeholder" style="height: 300px;">
+                    <!-- Placeholder for chart -->
+                    <div class="chart-container">
+                        <canvas id="weeklyStatsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-clock"></i> Transaksi Terbaru</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="recentTransactions">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Nama Masyarakat</th>
+                                <th>Jenis Sampah</th>
+                                <th>Berat</th>
+                                <th>Poin</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Input Penimbangan Page -->
+        <div class="page" id="weighing-page">
+            <div class="page-header">
+                <h1>Input Penimbangan Sampah</h1>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-weight"></i> Form Penimbangan</h3>
+                </div>
+                <form id="weighingForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customerName">Nama Masyarakat</label>
+                            <input type="text" id="customerName" class="form-control" placeholder="Nama lengkap masyarakat">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerPhone">Nomor Telepon</label>
+                            <input type="tel" id="customerPhone" class="form-control" placeholder="08xxxxxxxxxx">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="wasteType">Jenis Sampah</label>
+                        <select id="wasteType" class="form-control" required>
+                            <option value="">Pilih Jenis Sampah</option>
+                            <option value="plastic_pet" data-price="4500">Plastik PET (Rp 4,500/kg)</option>
+                            <option value="plastic_hdpe" data-price="3500">Plastik HDPE (Rp 3,500/kg)</option>
+                            <option value="paper_newspaper" data-price="3200">Kertas Koran (Rp 3,200/kg)</option>
+                            <option value="paper_cardboard" data-price="2800">Kardus (Rp 2,800/kg)</option>
+                            <option value="metal_aluminum" data-price="12000">Kaleng Aluminium (Rp 12,000/kg)</option>
+                            <option value="glass" data-price="1500">Kaca (Rp 1,500/kg)</option>
+                            <option value="organic" data-price="500">Organik (Rp 500/kg)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="weight">Berat (kg)</label>
+                            <input type="number" id="weight" class="form-control" min="0.5" step="0.5" required>
+                            <small class="form-text">Minimal 0.5 kg</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="pricePerKg">Harga per Kg</label>
+                            <input type="text" id="pricePerKg" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="totalValue">Total Nilai</label>
+                            <input type="text" id="totalValue" class="form-control" readonly>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pointsEarned">Poin Didapat</label>
+                            <input type="text" id="pointsEarned" class="form-control" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentMethod">Metode Pembayaran</label>
+                            <select id="paymentMethod" class="form-control">
+                                <option value="cash">Tunai</option>
+                                <option value="points">Poin</option>
+                                <option value="transfer">Transfer</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">Catatan</label>
+                        <textarea id="notes" class="form-control" rows="3" placeholder="Catatan tambahan..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Simpan Transaksi</button>
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-history"></i> Riwayat Input Hari Ini</h3>
+                    <button class="btn btn-sm btn-primary" id="refreshTodayBtn">
+                        <i class="fas fa-redo"></i> Refresh
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="todayTransactionsTable">
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <th>Nama</th>
+                                <th>Jenis</th>
+                                <th>Berat</th>
+                                <th>Total</th>
+                                <th>Poin</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Manajemen Penjemputan Page -->
+        <div class="page" id="pickup-page">
+            <div class="page-header">
+                <h1>Manajemen Penjemputan</h1>
+                <button class="btn btn-primary" id="addPickupBtn">
+                    <i class="fas fa-plus"></i> Tambah Penjemputan
+                </button>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-filter"></i> Filter</h3>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="filterStatus">Status</label>
+                        <select id="filterStatus" class="form-control">
+                            <option value="">Semua Status</option>
+                            <option value="pending">Menunggu</option>
+                            <option value="scheduled">Dijadwalkan</option>
+                            <option value="in_progress">Dalam Proses</option>
+                            <option value="completed">Selesai</option>
+                            <option value="cancelled">Dibatalkan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filterDate">Tanggal</label>
+                        <input type="date" id="filterDate" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="searchPickup">Cari</label>
+                        <input type="text" id="searchPickup" class="form-control" placeholder="Nama masyarakat atau alamat...">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-truck"></i> Daftar Penjemputan</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="pickupsTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tanggal</th>
+                                <th>Nama Masyarakat</th>
+                                <th>Alamat</th>
+                                <th>Jenis Sampah</th>
+                                <th>Perkiraan Berat</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Konversi ke Poin Page -->
+        <div class="page" id="conversion-page">
+            <div class="page-header">
+                <h1>Konversi Berat ke Poin</h1>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-calculator"></i> Kalkulator Konversi</h3>
+                </div>
+                <div class="conversion-tool">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="conversionWasteType">Jenis Sampah</label>
+                            <select id="conversionWasteType" class="form-control">
+                                <option value="plastic_pet" data-price="4500">Plastik PET</option>
+                                <option value="plastic_hdpe" data-price="3500">Plastik HDPE</option>
+                                <option value="paper_newspaper" data-price="3200">Kertas Koran</option>
+                                <option value="paper_cardboard" data-price="2800">Kardus</option>
+                                <option value="metal_aluminum" data-price="12000">Kaleng Aluminium</option>
+                                <option value="glass" data-price="1500">Kaca</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="conversionWeight">Berat (kg)</label>
+                            <input type="number" id="conversionWeight" class="form-control" value="1" min="0.1" step="0.1">
+                        </div>
+                    </div>
+                    
+                    <div class="conversion-result">
+                        <h4>Hasil Konversi:</h4>
+                        <div class="result-item">
+                            <span class="result-label">Nilai Rupiah:</span>
+                            <span class="result-value" id="conversionRupiah">Rp 0</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Poin Didapat:</span>
+                            <span class="result-value" id="conversionPoints">0 poin</span>
+                        </div>
+                        <div class="result-item">
+                            <span class="result-label">Nilai per Poin:</span>
+                            <span class="result-value">Rp 100</span>
+                        </div>
+                    </div>
+                    
+                    <div class="conversion-info">
+                        <p><i class="fas fa-info-circle"></i> 1 Poin = Rp 100. Sistem konversi otomatis menghitung berdasarkan harga pasar terkini.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-table"></i> Tabel Konversi Standar</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="conversionTable">
+                        <thead>
+                            <tr>
+                                <th>Jenis Sampah</th>
+                                <th>Harga per Kg</th>
+                                <th>Poin per Kg</th>
+                                <th>Contoh: 5 kg</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Plastik PET</td>
+                                <td>Rp 4,500</td>
+                                <td>45 poin</td>
+                                <td>225 poin</td>
+                            </tr>
+                            <tr>
+                                <td>Plastik HDPE</td>
+                                <td>Rp 3,500</td>
+                                <td>35 poin</td>
+                                <td>175 poin</td>
+                            </tr>
+                            <tr>
+                                <td>Kertas Koran</td>
+                                <td>Rp 3,200</td>
+                                <td>32 poin</td>
+                                <td>160 poin</td>
+                            </tr>
+                            <tr>
+                                <td>Kardus</td>
+                                <td>Rp 2,800</td>
+                                <td>28 poin</td>
+                                <td>140 poin</td>
+                            </tr>
+                            <tr>
+                                <td>Kaleng Aluminium</td>
+                                <td>Rp 12,000</td>
+                                <td>120 poin</td>
+                                <td>600 poin</td>
+                            </tr>
+                            <tr>
+                                <td>Kaca</td>
+                                <td>Rp 1,500</td>
+                                <td>15 poin</td>
+                                <td>75 poin</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Riwayat Transaksi Page -->
+        <div class="page" id="transactions-page">
+            <div class="page-header">
+                <h1>Riwayat Transaksi</h1>
+                <div class="date-range">
+                    <input type="date" id="startDatePengepul" class="form-control">
+                    <span>s/d</span>
+                    <input type="date" id="endDatePengepul" class="form-control">
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-exchange-alt"></i> Transaksi</h3>
+                    <button class="btn btn-primary" id="exportTransactionsBtn">
+                        <i class="fas fa-file-export"></i> Export
+                    </button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="allTransactionsTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tanggal</th>
+                                <th>Nama Masyarakat</th>
+                                <th>Jenis Sampah</th>
+                                <th>Berat</th>
+                                <th>Harga/Kg</th>
+                                <th>Total</th>
+                                <th>Poin</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Manajemen Stok Page -->
+        <div class="page" id="stock-page">
+            <div class="page-header">
+                <h1>Manajemen Stok Sampah</h1>
+                <button class="btn btn-primary" id="updateStockBtn">
+                    <i class="fas fa-sync-alt"></i> Update Stok
+                </button>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="stockPlastic">0 kg</div>
+                    <div class="stat-label">Plastik</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stockPaper">0 kg</div>
+                    <div class="stat-label">Kertas</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stockMetal">0 kg</div>
+                    <div class="stat-label">Logam</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="stockGlass">0 kg</div>
+                    <div class="stat-label">Kaca</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-boxes"></i> Detail Stok</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="stockDetailTable">
+                        <thead>
+                            <tr>
+                                <th>Jenis Sampah</th>
+                                <th>Stok Saat Ini (kg)</th>
+                                <th>Harga Beli/Kg</th>
+                                <th>Harga Jual/Kg</th>
+                                <th>Nilai Stok</th>
+                                <th>Perubahan 7 Hari</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-bar"></i> Grafik Stok 30 Hari Terakhir</h3>
+                </div>
+                <div class="chart-placeholder" style="height: 400px;">
+                    <!-- Placeholder for stock chart -->
+                    <div class="chart-container">
+                        <canvas id="stockChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Laporan Page -->
+        <div class="page" id="reports-page">
+            <div class="page-header">
+                <h1>Laporan</h1>
+                <div class="report-controls">
+                    <select id="reportType" class="form-control">
+                        <option value="daily">Harian</option>
+                        <option value="weekly">Mingguan</option>
+                        <option value="monthly">Bulanan</option>
+                    </select>
+                    <input type="date" id="reportDate" class="form-control">
+                    <button class="btn btn-primary" id="generateReportBtn">
+                        <i class="fas fa-chart-bar"></i> Generate Laporan
+                    </button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-file-alt"></i> Laporan Transaksi</h3>
+                </div>
+                <div id="reportContent">
+                    <p>Pilih tipe laporan dan tanggal, kemudian klik "Generate Laporan"</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Profil & Pengaturan Page -->
+        <div class="page" id="profile-page">
+            <div class="page-header">
+                <h1>Profil & Pengaturan</h1>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-user-circle"></i> Profil Pengepul</h3>
+                </div>
+                <form id="profileForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="profileName">Nama Pengepul</label>
+                            <input type="text" id="profileName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="profileEmail">Email</label>
+                            <input type="email" id="profileEmail" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="profilePhone">Nomor Telepon</label>
+                            <input type="tel" id="profilePhone" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="profileCapacity">Kapasitas Maksimal (kg)</label>
+                            <input type="number" id="profileCapacity" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="profileAddress">Alamat</label>
+                        <textarea id="profileAddress" class="form-control" rows="3" required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="profileLatitude">Latitude</label>
+                            <input type="text" id="profileLatitude" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="profileLongitude">Longitude</label>
+                            <input type="text" id="profileLongitude" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="profileDescription">Deskripsi</label>
+                        <textarea id="profileDescription" class="form-control" rows="3" placeholder="Deskripsi singkat tentang pengepul..."></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+            
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/pengepul.js"></script>
+</body>
+</html>

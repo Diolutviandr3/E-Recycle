@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Masyarakat - E-Recycle</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="sidebar-logo">
+                <i class="fas fa-recycle"></i>
+                <span>E-Recycle</span>
+            </a>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul class="sidebar-menu">
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link active" data-page="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="monitor">
+                        <i class="fas fa-desktop"></i>
+                        <span>Real-time Monitor</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="maps">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Peta Pengepul</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="reward">
+                        <i class="fas fa-gift"></i>
+                        <span>Reward & Tukar Poin</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="transactions">
+                        <i class="fas fa-history"></i>
+                        <span>Riwayat Transaksi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="schedule">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Jadwalkan Penjemputan</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="about">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Tentang</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <h4 id="userName">Masyarakat</h4>
+                    <p id="userBalance">Saldo: Rp 0</p>
+                </div>
+            </div>
+            <button class="btn btn-secondary" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Keluar
+            </button>
+        </div>
+    </div>
+    
+    <!-- Mobile Sidebar Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Main Content -->
+    <div class="content-area">
+        <!-- Dashboard Page -->
+        <div class="page active" id="dashboard-page">
+            <div class="page-header">
+                <h1>Dashboard Masyarakat</h1>
+                <button class="btn btn-primary" id="quickSellBtn">
+                    <i class="fas fa-plus"></i> Jual Sampah Sekarang
+                </button>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="userPoints">0</div>
+                    <div class="stat-label">Total Poin</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalWasteUser">0 kg</div>
+                    <div class="stat-label">Sampah Terjual</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalTransactionsUser">0</div>
+                    <div class="stat-label">Total Transaksi</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="currentBalance">Rp 0</div>
+                    <div class="stat-label">Saldo Tersedia</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-truck"></i> Penjemputan Mendatang</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="upcomingPickups">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Waktu</th>
+                                <th>Pengepul</th>
+                                <th>Jenis Sampah</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-line"></i> Riwayat Poin 7 Hari Terakhir</h3>
+                </div>
+                <div class="chart-placeholder" style="height: 300px;">
+                    Grafik riwayat poin akan ditampilkan di sini
+                </div>
+            </div>
+        </div>
+        
+        <!-- Real-time Monitor Page -->
+        <div class="page" id="monitor-page">
+            <div class="page-header">
+                <h1>Real-time Monitor</h1>
+                <div class="last-update" id="lastUpdateTime"></div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-sync-alt"></i> Status Real-time</h3>
+                    <button class="btn btn-sm btn-primary" id="refreshMonitorBtn">
+                        <i class="fas fa-redo"></i> Refresh
+                    </button>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" id="activeCollectors">0</div>
+                        <div class="stat-label">Pengepul Aktif</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="todayPickups">0</div>
+                        <div class="stat-label">Penjemputan Hari Ini</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="avgResponseTime">0 menit</div>
+                        <div class="stat-label">Rata-rata Response Time</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="satisfactionRate">0%</div>
+                        <div class="stat-label">Kepuasan Pengguna</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-bell"></i> Notifikasi Terbaru</h3>
+                </div>
+                <div id="notificationsList">
+                    <!-- Notifications will be populated here -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Maps Page -->
+        <div class="page" id="maps-page">
+            <div class="page-header">
+                <h1>Peta Lokasi Pengepul</h1>
+                <div class="map-controls">
+                    <input type="text" id="searchLocation" class="form-control" placeholder="Cari lokasi...">
+                </div>
+            </div>
+            
+            <div class="map-container">
+                <div class="map-placeholder">
+                    <!-- Google Maps Embed (Replace with actual Google Maps API) -->
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3953.2012261520917!2d110.364917!3d-7.801194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNDgnMDQuMyJTIDExMMKwMjEnNTMuNyJF!5e0!3m2!1sid!2sid!4v1617700000000!5m2!1sid!2sid" 
+                        width="100%" 
+                        height="500" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-list"></i> Daftar Pengepul Terdekat</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="collectorsTable">
+                        <thead>
+                            <tr>
+                                <th>Nama Pengepul</th>
+                                <th>Alamat</th>
+                                <th>Jarak</th>
+                                <th>Kapasitas</th>
+                                <th>Rating</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Reward Page -->
+        <div class="page" id="reward-page">
+            <div class="page-header">
+                <h1>Reward & Tukar Poin</h1>
+                <div class="user-points-display">
+                    <span class="points-label">Poin Anda:</span>
+                    <span class="points-value" id="userPointsValue">0 Poin</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-exchange-alt"></i> Tukar Poin ke Uang</h3>
+                </div>
+                <div class="exchange-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="exchangePoints">Jumlah Poin</label>
+                            <input type="number" id="exchangePoints" class="form-control" placeholder="Masukkan jumlah poin" min="100">
+                            <small class="form-text">Minimal penukaran: 100 poin</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="exchangeAmount">Nilai Uang</label>
+                            <input type="text" id="exchangeAmount" class="form-control" readonly>
+                            <small class="form-text">1 Poin = Rp 100</small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="paymentMethod">Metode Pembayaran</label>
+                        <select id="paymentMethod" class="form-control">
+                            <option value="">Pilih metode pembayaran</option>
+                            <option value="bank">Transfer Bank</option>
+                            <option value="gopay">GoPay</option>
+                            <option value="ovo">OVO</option>
+                            <option value="dana">DANA</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="bankDetails" style="display: none;">
+                        <label for="bankAccount">Nomor Rekening</label>
+                        <input type="text" id="bankAccount" class="form-control" placeholder="Masukkan nomor rekening">
+                    </div>
+                    <button class="btn btn-primary" id="exchangeBtn">Tukar Sekarang</button>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-gift"></i> Hadiah Lainnya</h3>
+                </div>
+                <div class="reward-items">
+                    <div class="reward-item" data-points="500">
+                        <div class="reward-points">500 Poin</div>
+                        <div class="reward-name">Pulsa 10.000</div>
+                        <div class="reward-desc">Semua operator</div>
+                    </div>
+                    <div class="reward-item" data-points="750">
+                        <div class="reward-points">750 Poin</div>
+                        <div class="reward-name">Paket Data 3GB</div>
+                        <div class="reward-desc">Masa aktif 7 hari</div>
+                    </div>
+                    <div class="reward-item" data-points="1000">
+                        <div class="reward-points">1000 Poin</div>
+                        <div class="reward-name">Voucher Belanja 15.000</div>
+                        <div class="reward-desc">Mitra merchant</div>
+                    </div>
+                    <div class="reward-item" data-points="1500">
+                        <div class="reward-points">1500 Poin</div>
+                        <div class="reward-name">Paket Data 10GB</div>
+                        <div class="reward-desc">Masa aktif 30 hari</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Transactions History Page -->
+        <div class="page" id="transactions-page">
+            <div class="page-header">
+                <h1>Riwayat Transaksi</h1>
+                <div class="date-range">
+                    <input type="date" id="startDateUser" class="form-control">
+                    <span>s/d</span>
+                    <input type="date" id="endDateUser" class="form-control">
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-history"></i> Transaksi Saya</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="userTransactionsTable">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Pengepul</th>
+                                <th>Jenis Sampah</th>
+                                <th>Berat</th>
+                                <th>Poin</th>
+                                <th>Nilai</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Schedule Pickup Page -->
+        <div class="page" id="schedule-page">
+            <div class="page-header">
+                <h1>Jadwalkan Penjemputan</h1>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-calendar-plus"></i> Buat Jadwal Baru</h3>
+                </div>
+                <form id="scheduleForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pickupDate">Tanggal Penjemputan</label>
+                            <input type="date" id="pickupDate" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="pickupTime">Waktu Penjemputan</label>
+                            <select id="pickupTime" class="form-control" required>
+                                <option value="">Pilih Waktu</option>
+                                <option value="08:00-10:00">08:00 - 10:00</option>
+                                <option value="10:00-12:00">10:00 - 12:00</option>
+                                <option value="13:00-15:00">13:00 - 15:00</option>
+                                <option value="15:00-17:00">15:00 - 17:00</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="collectorSelect">Pilih Pengepul</label>
+                        <select id="collectorSelect" class="form-control" required>
+                            <option value="">Pilih Pengepul</option>
+                            <!-- Options will be populated by JavaScript -->
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="wasteType">Jenis Sampah</label>
+                        <select id="wasteType" class="form-control" required multiple>
+                            <option value="plastic">Plastik</option>
+                            <option value="paper">Kertas</option>
+                            <option value="metal">Logam</option>
+                            <option value="glass">Kaca</option>
+                            <option value="organic">Organik</option>
+                        </select>
+                        <small class="form-text">Pilih satu atau lebih jenis sampah</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="estimatedWeight">Perkiraan Berat (kg)</label>
+                        <input type="number" id="estimatedWeight" class="form-control" min="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">Catatan Tambahan</label>
+                        <textarea id="notes" class="form-control" rows="3" placeholder="Contoh: Lokasi tepatnya, jenis plastik khusus, dll."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Buat Jadwal</button>
+                </form>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-calendar-check"></i> Jadwal yang Sudah Dipesan</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="scheduledPickupsTable">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Waktu</th>
+                                <th>Pengepul</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data will be populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- About Page -->
+        <div class="page" id="about-page">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-info-circle"></i> Tentang E-Recycle</h3>
+                </div>
+                <div class="about-content">
+                    <h2>Platform Pengelolaan Sampah Terintegrasi</h2>
+                    <p>E-Recycle adalah solusi inovatif untuk mengatasi masalah pengelolaan sampah di Indonesia dengan menghubungkan masyarakat langsung dengan pengepul sampah terdekat.</p>
+                    
+                    <h3>Fitur Utama:</h3>
+                    <ul>
+                        <li><strong>Penjadwalan Penjemputan:</strong> Atur jadwal penjemputan sampah sesuai waktu luang Anda</li>
+                        <li><strong>Monitoring Real-time:</strong> Pantau status penjemputan dan transaksi secara real-time</li>
+                        <li><strong>Sistem Reward:</strong> Dapatkan poin dari setiap transaksi yang bisa ditukar dengan uang atau hadiah</li>
+                        <li><strong>Peta Pengepul:</strong> Temukan pengepul terdekat dengan peta interaktif</li>
+                        <li><strong>Transaksi Aman:</strong> Sistem pembayaran digital yang aman dan transparan</li>
+                    </ul>
+                    
+                    <h3>Cara Kerja:</h3>
+                    <ol>
+                        <li>Daftar sebagai pengguna masyarakat</li>
+                        <li>Jadwalkan penjemputan sampah</li>
+                        <li>Tunggu pengepul datang ke lokasi Anda</li>
+                        <li>Sampah ditimbang dan dikonversi menjadi poin</li>
+                        <li>Tukar poin dengan uang atau hadiah lainnya</li>
+                    </ol>
+                    
+                    <h3>Kontak Kami:</h3>
+                    <p><i class="fas fa-envelope"></i> Email: support@gmail.com</p>
+                    <p><i class="fas fa-phone"></i> Telepon: 0895375174700</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Alamat: Jl. Ringroad Selatan, Yogyakarta</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Download Section -->
+        <div class="download-section">
+            <div class="download-content">
+                <div class="download-text">
+                    <h2>Download Aplikasi E-Recycle</h2>
+                    <p>Nikmati kemudahan pengelolaan sampah langsung dari smartphone Anda. Aplikasi E-Recycle tersedia untuk Android dan iOS dengan fitur lengkap.</p>
+                    
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Notifikasi real-time untuk status penjemputan</li>
+                        <li><i class="fas fa-check-circle"></i> Pemantauan harga sampah secara real-time</li>
+                        <li><i class="fas fa-check-circle"></i> Riwayat transaksi dan poin reward</li>
+                        <li><i class="fas fa-check-circle"></i> Chat langsung dengan pengepul</li>
+                    </ul>
+                    
+                    <div class="download-buttons">
+                        <a href="#" class="download-btn">
+                            <i class="fab fa-google-play"></i>
+                            <div class="btn-text">
+                                <span class="btn-label">Download di</span>
+                                <span class="btn-platform">Google Play</span>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="download-btn">
+                            <i class="fab fa-app-store"></i>
+                            <div class="btn-text">
+                                <span class="btn-label">Download di</span>
+                                <span class="btn-platform">App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="download-image">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Mobile App">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sell Waste Modal -->
+    <div class="modal" id="sellWasteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Jual Sampah</h3>
+                <button class="modal-close" id="closeSellModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="sellWasteForm">
+                    <div class="form-group">
+                        <label for="sellWasteType">Jenis Sampah</label>
+                        <select id="sellWasteType" class="form-control" required>
+                            <option value="">Pilih Jenis Sampah</option>
+                            <option value="plastic_pet" data-price="4500">Plastik PET (Rp 4,500/kg)</option>
+                            <option value="plastic_hdpe" data-price="3500">Plastik HDPE (Rp 3,500/kg)</option>
+                            <option value="paper_newspaper" data-price="3200">Kertas Koran (Rp 3,200/kg)</option>
+                            <option value="paper_cardboard" data-price="2800">Kardus (Rp 2,800/kg)</option>
+                            <option value="metal_aluminum" data-price="12000">Kaleng Aluminium (Rp 12,000/kg)</option>
+                            <option value="glass" data-price="1500">Kaca (Rp 1,500/kg)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sellWeight">Berat (kg)</label>
+                        <input type="number" id="sellWeight" class="form-control" min="0.5" step="0.5" required>
+                        <small class="form-text">Minimal 0.5 kg</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="estimatedValue">Perkiraan Nilai</label>
+                        <input type="text" id="estimatedValue" class="form-control" readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sellCollector">Pilih Pengepul</label>
+                        <select id="sellCollector" class="form-control" required>
+                            <option value="">Pilih Pengepul</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">Jual Sekarang</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/masyarakat.js"></script>
+</body>
+</html>

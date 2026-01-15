@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - E-Recycle</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="sidebar-logo">
+                <i class="fas fa-recycle"></i>
+                <span>E-Recycle</span>
+            </a>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul class="sidebar-menu">
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link active" data-page="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="users">
+                        <i class="fas fa-users"></i>
+                        <span>Pengguna</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="locations">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Lokasi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="transactions">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Transaksi</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="reports">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Laporan</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link" data-page="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Pengaturan</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <div class="user-details">
+                    <h4 id="adminName">Admin System</h4>
+                    <p id="adminRole">Administrator</p>
+                </div>
+            </div>
+            <button class="btn btn-secondary" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Keluar
+            </button>
+        </div>
+    </div>
+    
+    <!-- Mobile Sidebar Toggle -->
+    <button class="sidebar-toggle" id="sidebarToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Main Content -->
+    <div class="content-area">
+        <!-- Dashboard Page -->
+        <div class="page active" id="dashboard-page">
+            <div class="page-header">
+                <h1>Dashboard Admin</h1>
+                <div class="date-display" id="currentDate"></div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalUsers">0</div>
+                    <div class="stat-label">Total Pengguna</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalPengepul">0</div>
+                    <div class="stat-label">Pengepul Aktif</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalTransactions">0</div>
+                    <div class="stat-label">Transaksi Hari Ini</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalWaste">0 kg</div>
+                    <div class="stat-label">Sampah Terkelola</div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-line"></i> Statistik 7 Hari Terakhir</h3>
+                </div>
+                <div class="chart-placeholder" style="height: 300px;">
+                    Grafik statistik akan ditampilkan di sini
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-clock"></i> Aktivitas Terbaru</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="recentActivities">
+                        <thead>
+                            <tr>
+                                <th>Waktu</th>
+                                <th>Pengguna</th>
+                                <th>Aktivitas</th>
+                                <th>Detail</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Users Management Page -->
+        <div class="page" id="users-page">
+            <div class="page-header">
+                <h1>Manajemen Pengguna</h1>
+                <button class="btn btn-primary" id="addUserBtn">
+                    <i class="fas fa-plus"></i> Tambah Pengguna
+                </button>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-filter"></i> Filter</h3>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="filterRole">Peran</label>
+                        <select id="filterRole" class="form-control">
+                            <option value="">Semua Peran</option>
+                            <option value="admin">Admin</option>
+                            <option value="pengepul">Pengepul</option>
+                            <option value="masyarakat">Masyarakat</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="filterStatus">Status</label>
+                        <select id="filterStatus" class="form-control">
+                            <option value="">Semua Status</option>
+                            <option value="active">Aktif</option>
+                            <option value="inactive">Nonaktif</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="searchUser">Cari</label>
+                        <input type="text" id="searchUser" class="form-control" placeholder="Nama atau email...">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-users"></i> Daftar Pengguna</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="usersTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama</th>
+                                <th>Email</th>
+                                <th>Peran</th>
+                                <th>Telepon</th>
+                                <th>Bergabung</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Locations Management Page -->
+        <div class="page" id="locations-page">
+            <div class="page-header">
+                <h1>Manajemen Lokasi</h1>
+                <button class="btn btn-primary" id="addLocationBtn">
+                    <i class="fas fa-plus"></i> Tambah Lokasi
+                </button>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-map"></i> Peta Lokasi Pengepul</h3>
+                </div>
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        Peta interaktif akan ditampilkan di sini
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-list"></i> Daftar Lokasi Pengepul</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="locationsTable">
+                        <thead>
+                            <tr>
+                                <th>Nama</th>
+                                <th>Alamat</th>
+                                <th>Koordinat</th>
+                                <th>Kapasitas</th>
+                                <th>Terisi</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Transactions Page -->
+        <div class="page" id="transactions-page">
+            <div class="page-header">
+                <h1>Manajemen Transaksi</h1>
+                <div class="date-range">
+                    <input type="date" id="startDate" class="form-control">
+                    <span>s/d</span>
+                    <input type="date" id="endDate" class="form-control">
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-exchange-alt"></i> Transaksi Terbaru</h3>
+                </div>
+                <div class="table-responsive">
+                    <table class="table" id="transactionsTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Tanggal</th>
+                                <th>Pengguna</th>
+                                <th>Pengepul</th>
+                                <th>Jenis Sampah</th>
+                                <th>Berat</th>
+                                <th>Nilai</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Data akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Reports Page -->
+        <div class="page" id="reports-page">
+            <div class="page-header">
+                <h1>Laporan & Analytics</h1>
+                <button class="btn btn-primary" id="exportReportBtn">
+                    <i class="fas fa-file-export"></i> Export Laporan
+                </button>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-pie"></i> Distribusi Pengguna</h3>
+                </div>
+                <div class="chart-placeholder" style="height: 400px;">
+                    Grafik distribusi pengguna akan ditampilkan di sini
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-bar"></i> Trend Transaksi Bulanan</h3>
+                </div>
+                <div class="chart-placeholder" style="height: 400px;">
+                    Grafik trend transaksi akan ditampilkan di sini
+                </div>
+            </div>
+        </div>
+        
+        <!-- Settings Page -->
+        <div class="page" id="settings-page">
+            <div class="page-header">
+                <h1>Pengaturan Sistem</h1>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-cogs"></i> Konfigurasi Umum</h3>
+                </div>
+                <form id="systemSettings">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="siteName">Nama Situs</label>
+                            <input type="text" id="siteName" class="form-control" value="E-Recycle">
+                        </div>
+                        <div class="form-group">
+                            <label for="siteEmail">Email Situs</label>
+                            <input type="email" id="siteEmail" class="form-control" value="contact@gmail.com">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pointValue">Nilai Poin (Rp per poin)</label>
+                            <input type="number" id="pointValue" class="form-control" value="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="minWithdrawal">Minimal Penarikan (Rp)</label>
+                            <input type="number" id="minWithdrawal" class="form-control" value="50000">
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Simpan Pengaturan</button>
+                        <button type="reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Download Section -->
+        <div class="download-section">
+            <div class="download-content">
+                <div class="download-text">
+                    <h2>Download Aplikasi E-Recycle</h2>
+                    <p>Nikmati kemudahan pengelolaan sampah langsung dari smartphone Anda. Aplikasi E-Recycle tersedia untuk Android dan iOS dengan fitur lengkap.</p>
+                    
+                    <ul class="feature-list">
+                        <li><i class="fas fa-check-circle"></i> Notifikasi real-time untuk status penjemputan</li>
+                        <li><i class="fas fa-check-circle"></i> Pemantauan harga sampah secara real-time</li>
+                        <li><i class="fas fa-check-circle"></i> Riwayat transaksi dan poin reward</li>
+                        <li><i class="fas fa-check-circle"></i> Chat langsung dengan pengepul</li>
+                    </ul>
+                    
+                    <div class="download-buttons">
+                        <a href="#" class="download-btn">
+                            <i class="fab fa-google-play"></i>
+                            <div class="btn-text">
+                                <span class="btn-label">Download di</span>
+                                <span class="btn-platform">Google Play</span>
+                            </div>
+                        </a>
+                        
+                        <a href="#" class="download-btn">
+                            <i class="fab fa-app-store"></i>
+                            <div class="btn-text">
+                                <span class="btn-label">Download di</span>
+                                <span class="btn-platform">App Store</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="download-image">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Mobile App">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="userModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalUserTitle">Tambah Pengguna</h3>
+                <button class="modal-close" id="closeUserModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="userForm">
+                    <input type="hidden" id="userId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="modalUserName">Nama Lengkap *</label>
+                            <input type="text" id="modalUserName" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalUserEmail">Email *</label>
+                            <input type="email" id="modalUserEmail" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="modalUserRole">Peran *</label>
+                            <select id="modalUserRole" class="form-control" required>
+                                <option value="">Pilih Peran</option>
+                                <option value="admin">Admin</option>
+                                <option value="pengepul">Pengepul/Bank Sampah</option>
+                                <option value="masyarakat">Masyarakat</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="modalUserPhone">Telepon *</label>
+                            <input type="tel" id="modalUserPhone" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalUserAddress">Alamat</label>
+                        <textarea id="modalUserAddress" class="form-control" rows="2"></textarea>
+                    </div>
+                    
+                    <div class="form-group" id="passwordFields">
+                        <label for="modalUserPassword">Password *</label>
+                        <input type="password" id="modalUserPassword" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary" id="saveUserBtn">Simpan</button>
+                        <button type="button" class="btn btn-secondary" id="cancelUserBtn">Batal</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
